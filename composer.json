@@ -1,5 +1,5 @@
 {
-    "name": "pestphp/pest-plugin-profanify",
+    "name": "pestphp/pest-plugin-profanity",
     "description": "The Pest Profanity Plugin",
     "keywords": [
         "php",
