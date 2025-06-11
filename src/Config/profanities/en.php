@@ -15,7 +15,6 @@ return [
     '5h17',
     '5h1t',
     '5kank',
-    '69',
     '@55',
     '@ssfcker',
     '@ssfucker',
