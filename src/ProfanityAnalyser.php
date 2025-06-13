@@ -34,7 +34,7 @@ final class ProfanityAnalyser
         $profanitiesFiles = array_diff($profanitiesFiles, ['.', '..']);
 
         if ($language) {
-            $languages = is_string($language) ? [$language] : $language;
+            $languages = is_array($language) ? $language : [$language];
 
             foreach ($languages as $lang) {
                 $specificLanguage = "$profanitiesDir/$lang.php";
@@ -49,7 +49,7 @@ final class ProfanityAnalyser
             foreach ($profanitiesFiles as $profanitiesFile) {
                 $words = array_merge(
                     $words,
-                    include "$profanitiesDir/$profanitiesFile"
+                    include "$profanitiesDir/en.php"
                 );
             }
         }
