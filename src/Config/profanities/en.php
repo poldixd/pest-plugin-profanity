@@ -1188,7 +1188,6 @@ return [
     'penisfvcker',
     'penisfvckers',
     'penishead',
-    'peter',
     'peter puffer',
     'ph@ggots',
     'phaggot',
