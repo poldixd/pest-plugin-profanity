@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use JonPurvis\Profanify\Expectations\TargetedProfanity;
+use JonPurvis\Profanify\Support\Russian;
 use Pest\Arch\Contracts\ArchExpectation;
 use Pest\Arch\Support\FileLineFinder;
 use PHPUnit\Architecture\Elements\ObjectDescription;
@@ -46,12 +47,19 @@ expect()->extend('toHaveNoProfanity', fn (array $excluding = [], array $includin
 
         $fileContents = (string) file_get_contents($object->path);
 
-        $foundWords = array_filter($words, function (string $word) use ($fileContents): bool {
+        $russian = new Russian;
+
+        $foundWords = array_filter($words, function (string $word) use ($fileContents, $russian): bool {
             if (preg_match('/\b'.preg_quote($word, '/').'\b/i', $fileContents)) {
                 return true;
             }
 
-            preg_match_all('/[a-zA-Z]\w*/', $fileContents, $matches);
+            if ($russian->is($word)) {
+                $fileContents = Russian::normalize($fileContents);
+                preg_match_all(Russian::pattern(), $fileContents, $matches);
+            } else {
+                preg_match_all('/[a-zA-Z]\w*/', $fileContents, $matches);
+            }
 
             foreach ($matches[0] as $token) {
                 $snakeParts = explode('_', $token);
@@ -77,6 +85,10 @@ expect()->extend('toHaveNoProfanity', fn (array $excluding = [], array $includin
 
             return false;
         });
+
+        if ($russian->isDetected()) {
+            $foundWords = Russian::backToOrigin($foundWords);
+        }
 
         return $foundWords === [];
     },
