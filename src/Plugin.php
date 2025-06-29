@@ -180,7 +180,9 @@ class Plugin implements HandlesOriginalArguments
         $this->profanityLogger->output();
 
         if ($exitCode === 1) {
-            Output::errorMessage("Found $totalProfanities instances of profanity in $filesWithProfanityCount files");
+            $instanceWord = $totalProfanities === 1 ? 'instance' : 'instances';
+            $filesWord = $filesWithProfanityCount === 1 ? 'file' : 'files';
+            Output::errorMessage("Found $totalProfanities $instanceWord of profanity in $filesWithProfanityCount $filesWord");
         } else {
             Output::successMessage('No profanity found in your application!');
         }
