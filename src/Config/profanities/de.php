@@ -46,7 +46,6 @@ return [
     'schlampen',
     'scheiße',
     'scheiss',
-    'scheiße',
     'scheisse',
     'scheisskopf',
     'scheisskerl',
